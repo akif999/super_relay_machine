@@ -31,9 +31,11 @@ func main() {
 	swRed.Configure(machine.PinConfig{Mode: machine.PinInputPullup})
 
 	//Initial digital out port
-	relaySwitchOut := machine.D6
-	relaySwitchOut.Configure(machine.PinConfig{Mode: machine.PinOutput})
-	relaySwitchOut.High()
+	relaySwitchOut := []machine.Pin{machine.D6, machine.D7}
+	for _, o := range relaySwitchOut {
+		o.Configure(machine.PinConfig{Mode: machine.PinOutput})
+		o.High()
+	}
 
 	device.Point(true)
 	// 10ms
@@ -175,10 +177,14 @@ func main() {
 				device.DisplayWithBitAddr(1, segParam.energizationTime%10)
 				device.DisplayWithBitAddr(2, segParam.numOfEnergization/10)
 				device.DisplayWithBitAddr(3, segParam.numOfEnergization%10)
-				relaySwitchOut.Low()
+				for _, o := range relaySwitchOut {
+					o.Low()
+				}
 				time.Sleep(time.Millisecond * time.Duration(t+15)) //15ms is adjustment
 				device.ClearDisplay()
-				relaySwitchOut.High()
+				for _, o := range relaySwitchOut {
+					o.High()
+				}
 				time.Sleep(time.Millisecond * time.Duration(t+15)) //15ms is adjustment
 			}
 		}

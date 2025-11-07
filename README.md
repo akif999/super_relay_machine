@@ -5,7 +5,7 @@ This is my super relay machine.
 ## hardware
 
 It uses TM1637 for 7 segment display  
-...
+<image src="./image/hardware01.png" alt="hardware01" width="650">
 
 ## software
 
